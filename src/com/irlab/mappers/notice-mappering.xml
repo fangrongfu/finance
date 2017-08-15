@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whu.dao.NoticeDao">
+	<resultMap type="Notice" id="NoticeResultMap">
+		<id property="n_id" column="n_id" />
+		<result property="n_name" column="n_name"/>
+		<result property="n_code" column="n_code"/>
+		<result property="n_title" column="n_title"/>
+		<result property="n_time" column="n_time"/>
+		<result property="n_content" column="n_content"/>
+		<result property="n_url" column="n_url"/>
+		<result property="n_event" column="n_event"/>
+	</resultMap>
+	
+	<!-- 通过公司名称、股票代码、公告类型查询新闻公告的所有信息 -->
+	<select id="selectNoticeDao" resultMap="NoticeResultMap">
+		select * from notice 
+		<where>
+			<if test="n_name!=null">
+				or n_name like CONCAT(CONCAT('%',#{n_name}),'%')
+			</if>
+			<if test="n_code!=null">
+				or n_code like CONCAT(CONCAT('%',#{n_code}),'%')
+			</if>
+			<if test="n_event!=null">
+				or n_event like CONCAT(CONCAT('%',#{n_event}),'%')
+			</if>
+			limit {#{n_start},#{n_rows}}
+		</where> 
+	</select>
+	
+	<!-- 通过公司名称、股票代码、公告类型查询记录数 -->
+	<select id="selectCountNoticeDao" resultMap="NoticeResultMap">
+		select count(*) from notice 
+		<where>
+			<if test="n_name!=null">
+				or n_name like CONCAT(CONCAT('%',#{n_name}),'%')
+			</if>
+			<if test="n_code!=null">
+				or n_code like CONCAT(CONCAT('%',#{n_code}),'%')
+			</if>
+			<if test="n_event!=null">
+				or n_event like CONCAT(CONCAT('%',#{n_event}),'%')
+			</if>
+		</where> 
+	</select>
+	
+</mapper>
