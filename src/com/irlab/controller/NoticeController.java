@@ -27,17 +27,9 @@ public class NoticeController {
 	
 	@RequestMapping("/select")
 	@ResponseBody
-	public Map<String, Object> selectNoticeControlller(HttpServletRequest request,int page,int rows){
-		String searchObj = null;
+	public Map<String, Object> selectNoticeControlller(HttpServletRequest request,int page,int rows,String searchObj){
 		Paging paging = new Paging();
 		Map<String, Object> map = new HashMap<String, Object>();
-		String searchObjOne = request.getParameter("searchObj");
-		System.out.println(searchObjOne);
-		searchObj = searchObjOne.substring(1, searchObjOne.length()-1);
-		if("".equals(searchObj) || searchObj == null ){
-			map.put("paging", null);
-			return noticeService.selectNoticeService(paging);
-		}
 		paging.setN_event(searchObj);
 		paging.setN_name(searchObj);
 		paging.setN_code(searchObj);

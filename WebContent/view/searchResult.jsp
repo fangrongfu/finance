@@ -71,47 +71,57 @@
     </div>
 </body>
 <script>
-	
+	var searchObjPost=decodeURI(GetQueryString("searchObj"));
     $(function(){
-    	var Result_Obj;
-    	var searchObj=decodeURI(GetQueryString("searchObj"));//解码
-        getSearchResult();
-        initTable();
-        function getSearchResult(){ 
-             console.info(searchObj);
-             $.ajax({
-                 type:'post',
-                 url:'${pageContext.request.contextPath}/notice/select.do',
-                 data:{searchObj:JSON.stringify(searchObj)},
-                 cache:false,
-                 dataType:'text',
-                 success:function(rtn){
-                     Result_Obj=(JSON.parse(rtn)).notice;
-                     console.info(Result_Obj);
-                     $('#tb_searchResult').bootstrapTable('load',Result_Obj);
-                     //console.info(ResultObj.rows);
-                 }//end of success function
-             });//end of ajax
-        } 
+    	//var Result_Obj;
+        //getSearchResult();
+        var oTable=new TableInit();
+    	oTable.initTable();
+        <%--function getSearchResult(){ --%>
+             <%--console.info(searchObj);--%>
+             <%--$.ajax({--%>
+                 <%--type:'post',--%>
+                 <%--url:'${pageContext.request.contextPath}/notice/select.do',--%>
+                 <%--data:{searchObj:JSON.stringify(searchObj)},--%>
+                 <%--cache:false,--%>
+                 <%--dataType:'text',--%>
+                 <%--success:function(rtn){--%>
+                     <%--Result_Obj=(JSON.parse(rtn)).notice;--%>
+                     <%--console.info(Result_Obj);--%>
+                     <%--$('#tb_searchResult').bootstrapTable('load',Result_Obj);--%>
+                     <%--//console.info(ResultObj.rows);--%>
+                 <%--}//end of success function--%>
+             <%--});//end of ajax--%>
+        <%--} --%>
+       
 
-        function GetQueryString(name)
-	    {
-	        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-	        var r = window.location.search.substr(1).match(reg);
-            if(r!=null)
-                return  unescape(r[2]); 
-            return null;
-	    }
-      	function initTable(){
-      		$('#tb_searchResult').bootstrapTable({
+        
+    });
+    var TableInit = function(){
+    	var oTableInit = new Object();
+    	oTableInit.initTable=function(){
+    		$('#tb_searchResult').bootstrapTable({
+                method:'post',
+                contentType: 'application/x-www-form-urlencoded',
                 fit:true,
                 fitColumns:true,
                 striped: true,
+                toolbar: '#toolbar', 
                 rownumbers: true,
-                pagination: false,
-                dataType:"json",
+                pagination: true,
+                //dataType:"json",
                 showColumns:true,
-                //queryParams:{searchObj:searchObj},
+                queryParams:oTableInit.queryParams,
+                sidePagination: "server", //服务端处理分页
+                pageNumber:1,      //初始化加载第一页，默认第一页
+                pageSize: 10,      //每页的记录行数（*）
+                pageList: [10, 25, 50, 100],  //可供选择的每页的行数（*）
+                queryParamsType:'limit', //默认值为 'limit' ,在默认情况下 传给服务端的参数为：offset,limit,sort
+                                    // 设置为 ''  在这种情况下传给服务器的参数为：pageSize,pageNumber
+                url:'${pageContext.request.contextPath}/notice/select.do',
+                idField:"n_code",
+                showRefresh: true,
+                search: false,//是否显示右上角的搜索框
                 columns:[
                     {
                         title:"公司名称",
@@ -126,11 +136,11 @@
                         order:"desc"
                     },
                     {
-                        title:"事件摘要",
+                        title:"公告摘要",
                         field:"n_title",
                     },
                     {
-                        title:"事件详情",
+                        title:"公告详情",
                         field:"n_url",
                         formatter:function(value,row,index){
                             var operation='<a href="javascript:;" class="detail label label-success">查看详情</span>';
@@ -149,9 +159,27 @@
                     //点击该行，显示该企业或者该企业对应的事件
                 },
                 locale:"zh-CN"
-            });
-      	}
-       
-        
-    });
+            });//表格参数初始化
+    	};
+    	//自定义查询参数
+    	oTableInit.queryParams = function (params) {
+      			var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+      	                rows: params.limit,   //页面大小
+      	                page: params.offset+1,  //页码
+      	                searchObj:searchObjPost
+      	            };
+      			console.info(params);
+      			console.info(temp);
+      	        return temp;
+      		};
+    	return oTableInit;
+    }
+    function GetQueryString(name)
+    {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)
+            return  unescape(r[2]); 
+        return null;
+    }    
 </script>

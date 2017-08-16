@@ -9,7 +9,7 @@ public class Paging {
 	private String n_name;//  公司的名称  
 	private String n_code;//  公司的股票代码
 	private String n_event;//  公司的公告分类的类型
-	private String n_total;//  公司表根据名称、代码、公告类型查询的总条数
+	private int    n_total;//  公司表根据名称、代码、公告类型查询的总条数
 	private int    n_start;//  起始条数
 	private int    n_rows;//   每一行的记录数
 	public String getN_name() {
@@ -30,10 +30,10 @@ public class Paging {
 	public void setN_event(String n_event) {
 		this.n_event = n_event;
 	}
-	public String getN_total() {
+	public int getN_total() {
 		return n_total;
 	}
-	public void setN_total(String n_total) {
+	public void setN_total(int n_total) {
 		this.n_total = n_total;
 	}
 	public int getN_start() {
