@@ -1,4 +1,4 @@
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -79,24 +79,6 @@
         //getSearchResult();
         var oTable=new TableInit();
         oTable.initTable();
-        <%--function getSearchResult(){ --%>
-        <%--console.info(searchObj);--%>
-        <%--$.ajax({--%>
-        <%--type:'post',--%>
-        <%--url:'${pageContext.request.contextPath}/notice/select.do',--%>
-        <%--data:{searchObj:JSON.stringify(searchObj)},--%>
-        <%--cache:false,--%>
-        <%--dataType:'text',--%>
-        <%--success:function(rtn){--%>
-        <%--Result_Obj=(JSON.parse(rtn)).notice;--%>
-        <%--console.info(Result_Obj);--%>
-        <%--$('#tb_searchResult').bootstrapTable('load',Result_Obj);--%>
-        <%--//console.info(ResultObj.rows);--%>
-        <%--}//end of success function--%>
-        <%--});//end of ajax--%>
-        <%--} --%>
-
-
     });
     var TableInit = function(){
         var oTableInit = new Object();
@@ -111,7 +93,6 @@
                 rownumbers: true,
                 pagination: true,
                 //dataType:"json",
-
                 queryParams:oTableInit.queryParams,
                 sidePagination: "server", //服务端处理分页
                 pageNumber:1,      //初始化加载第一页，默认第一页
@@ -188,7 +169,7 @@
         oTableInit.queryParams = function (params) {
             var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
                 rows: params.limit,   //页面大小
-                page: params.offset+1,  //页码
+                page: (params.offset/params.limit)+1,  //页码
                 searchObj:searchObjPost
             };
             //console.info(params);
@@ -197,7 +178,6 @@
         };
         return oTableInit;
     }
-
     //传递公司ID
     function showCompanyInfo(){
         conpany_url="CompanyInfo.jsp?CompanyID="+encodeURI(encodeURI(CompanyID));//拼接url
