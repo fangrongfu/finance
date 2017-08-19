@@ -113,7 +113,7 @@
     function searchCompanyInfo() {
         $.ajax({
             type:'post',
-            url:'#',
+            url:'${pageContext.request.contextPath}/notice/selectDetail.do',
             data:showCompanyID,
             success:function (rtn) {
                 if(rtn.Success){

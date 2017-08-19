@@ -1,5 +1,7 @@
 
 package com.irlab.entity;
+import javax.annotation.Resource;
+
 import com.irlab.entity.Information;
 /**
  * @author  fangrongfu
@@ -10,6 +12,7 @@ public class Company {
 	private int c_id;// 公司的ID
 	private String c_name;//  公司的名称
 	private String c_fullname;//  公司的全称
+	@Resource
 	private Information information;//  基本信息
 	public int getC_id() {
 		return c_id;
