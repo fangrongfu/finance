@@ -57,8 +57,9 @@
                 </ul>
                 <form class="navbar-form navbar-right" role="search">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input id="topSearch" type="text" class="form-control" placeholder="Search">
                     </div>
+                    <input type="text" value="解决bootstrap与AJAX异步提交表单的冲突" hidden />
                     <button type="button" id="search" class="btn btn-default"><span class="glyphicon glyphicon-search"></span>搜索</button>
                 </form>
             </div>
@@ -75,10 +76,20 @@
     var searchObjPost=decodeURI(GetQueryString("searchObj"));
     var CompanyID = null;
     $(function(){
+        $('#search').click(function(){
+            // 输入的内容传递给后台，并跳转到检索结果界面
+            searchObj=$('#topSearch').val();
+            searchFinEvent();
+        });
         //var Result_Obj;
         //getSearchResult();
         var oTable=new TableInit();
         oTable.initTable();
+        $("body").keydown(function() {
+            if (event.keyCode == "13") {//keyCode=13是回车键
+                $('#search').click();
+            }
+        });
     });
     var TableInit = function(){
         var oTableInit = new Object();

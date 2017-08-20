@@ -7,3 +7,10 @@ function GetQueryString(name)
         return  unescape(r[2]);
     return null;
 }
+//搜索函数，统一公用
+var searchObj=null;
+function searchFinEvent(){
+    search_url="searchResult.jsp?searchObj="+encodeURI(encodeURI(searchObj));//拼接url
+    window.location.href=search_url;
+    console.info(searchObj);
+}

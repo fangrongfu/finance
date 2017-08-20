@@ -72,8 +72,9 @@
                     </ul>
                     <form class="navbar-form navbar-right" role="search">
 				        <div class="form-group">
-					    <input type="text" class="form-control" placeholder="Search">
+					    <input id="topSearch" type="text" class="form-control" placeholder="Search">
 				        </div>
+                        <input type="text" value="解决bootstrap与AJAX异步提交表单的冲突" hidden />
 					    <button type="button" id="search" class="btn btn-default"><span class="glyphicon glyphicon-search"></span>搜索</button>
 			        </form>
                 </div>
@@ -123,23 +124,22 @@
 </html>
 <script>
     $(function(){
-        var searchObj=null;
         $('#btSearch').click(function(){
             searchObj=$('#ipSearch').val();
             searchFinEvent();
             //console.info(searchObj);
         });//end of btSearch
-        
+
+        $('#search').click(function(){
+            searchObj=$('#topSearch').val();
+            searchFinEvent();
+            //console.info(searchObj);
+        });//end of btSearch
+
         $('.btnItem').click(function(){
             searchObj=$(this).html();
             searchFinEvent();
             //console.info(searchObj);
         });
-
-        function searchFinEvent(){
-            search_url="searchResult.jsp?searchObj="+encodeURI(encodeURI(searchObj));//拼接url
-            window.location.href=search_url;
-            console.info(searchObj);
-        }
     });
 </script>
