@@ -14,10 +14,14 @@
     <title>金融事件智能分类</title>
     <link rel="stylesheet" href="..\css\bootstrap.min.css">
     <link rel="stylesheet" href="..\css\bootstrap-table.min.css">
+    <link rel="stylesheet" href="..\css\bootstrap-datetimepicker.min.css">
     <script src="..\js\jquery.min.js"></script>
     <script src="..\js\bootstrap.min.js"></script>
     <script src="..\js\bootstrap-table.min.js"></script>
     <script src="..\js\bootstrap-table-zh-CN.min.js"></script>
+    <script src="..\js\moment-with-locales.js"></script>
+    <script src="..\js\bootstrap-datetimepicker.min.js"></script>
+    <script src="..\js\bootstrap-datetimepicker.zh-CN.js"></script>
     <script src="..\js\main.js"></script>
     <style>
         html, body {
@@ -109,6 +113,19 @@
             </div>
             <div id="tab3" class="tab-pane fade">
                 <h4 style="margin: 10px">近期新闻</h4>
+                <div  class="row">
+                    <div class="col-sm-4">
+                        <div style="padding:0px 10px" class="form-group">
+                            <label for="">选择日期：</label>
+                            <div class="input-group date" id='datePicker'>
+                                <input type="text" class="form-control">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <table id="tb_News">
                 </table>
             </div>
@@ -120,6 +137,7 @@
 <script>
     var showCompanyID=decodeURI(GetQueryString("CompanyID"));
     $(function(){
+        Datetimes();
         $('#search').click(function(){
             // 输入的内容传递给后台，并跳转到检索结果界面
             searchObj=$('#topSearch').val();
@@ -134,6 +152,21 @@
             }
         });
     });
+    function Datetimes() {
+        $('#datePicker').datetimepicker({
+            language: 'zh-CN',//显示中文
+            format:"yyyy-mm-dd",
+            autoclose: true,
+            todayBtn: true,
+            locale: moment.locale('zh-cn'),
+            minView:2,
+            initialDate: new Date(),
+            autoclose: true,//选中自动关闭
+            todayBtn: true,//显示今日按钮
+            todayHighlight:true
+        });
+    }
+
     function initInfo(companyInfo) {
         company_code=companyInfo.company.information.i_id;
         $('#companyName').html("<strong>"+companyInfo.company.c_name+"</strong>("+companyInfo.company.information.i_id+")");
@@ -223,6 +256,7 @@
             locale:"zh-CN"
         });//表格参数初始化
     }
+    //新闻采用表格嵌套表格的展示方法
     function initNewsTb() {
         $('#tb_News').bootstrapTable({
             method:'post',
@@ -232,12 +266,14 @@
             striped: true,
             rownumbers: true,
             pagination: true,
+            showRefresh:true,
             //dataType:"json",
             queryParams: function (params) {
                 var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
                     rows: params.limit,   //页面大小
                     page: params.offset+1,  //页码
-                    searchObj:showCompanyID
+                    searchObj:showCompanyID,
+                    date:($('#datePicker').data().date)==null?"all":$('#datePicker').data().date
                 };
                 return temp;
             },
@@ -251,32 +287,32 @@
             showToggle:true,
             columns:[
                 {
-                    title:"公司名称",
-                    field:"n_name",
-                    order:"desc"
-                },
-                {
-                    title:"股票代码",
-                    field:"n_code",
-                    //sortable:true,
-                    order:"desc"
-                },
-                {
-                    title:"新闻摘要",
-                    field:"n_title",
-                },
-                {
                     title:"公告详情",
-                    field:"n_url",
+                    field:"journalism",
                     formatter:function(value,row,index){
-                        var operation='<a href="javascript:;" class="detail label label-success">查看详情</a>';
+                        var operation='<table cellpadding="0" cellspacing="0" border="0" style="border:none; margin:0 auto; width:100%"><tbody>';
+                            operation=operation+'<tr>';
+                                operation=operation+'<td class="newsTitle" colspan="2" style="padding:5px 0 4px 0; vertical-align:top; text-align:left; padding-bottom:0" valign="top" align="left"><h5>'+row.j_title+'</h5>';
+                                operation=operation+'</td>';
+                            operation=operation+'</tr>';
+                            operation=operation+'<tr>';
+                                operation=operation+'<td class="newsDigest" colspan="2" style="padding:5px 0 4px 0; padding-top:0"><h5><small>'+row.j_digest+'</small></h5>';
+                                operation=operation+'</td>';
+                            operation=operation+'</tr>';
+                            operation=operation+'<tr>';
+                                operation=operation+'<td class="newsIndustry" style="padding:5px 0 4px 0; padding-top:0"><p>'+row.j_industry+'</p>';
+                                operation=operation+'</td>';
+                                operation=operation+'<td class="newsTime" style="padding:5px 0 4px 0; padding-top:0"><p>'+row.j_time+'</p>';
+                                operation=operation+'</td>';
+                            operation=operation+'</tr>';
+                            operation=operation+'<tr>    ';
+                            operation=operation+'</tr>';
+                        operation=operation+'</tbody></table>';
                         return operation;
                     },
-                    events:{
-                        'click .detail':function(e,value,row,index){
-                            urlLink=row.n_url;
+                    onClickRow:function(row,$element){
+                            urlLink=row.j_url;
                             window.open(urlLink);
-                        }
                     }
                 }
             ],
