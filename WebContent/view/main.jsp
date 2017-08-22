@@ -12,7 +12,7 @@
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/swiper.jquery.min.js"></script>
     <script src="../js/swiper.min.js"></script>
-    <script src="..\js\main.js"></script>
+    <script src="../js/main.js"></script>
     <style>
     html, body {
         position: relative;
@@ -82,7 +82,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <img class="navbar-brand" src="..\.\pics\陆门实验室logo_副本.png" href="#maim.jsp"style="padding:0;height:50px;">
+                    <img class="navbar-brand" src="../pics/IRLablogo.png" href="#maim.jsp"style="padding:0;height:50px;">
                 </div>
                 <div class="collapse navbar-collapse  navbar-right" id="top-navbar-collapse">
                     <ul class="nav navbar-nav">

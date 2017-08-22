@@ -39,7 +39,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <img class="navbar-brand" src="..\.\pics\陆门实验室logo_副本.png" href="#maim.jsp"style="padding:0;height:50px;">
+                <img class="navbar-brand" src="..\pics\IRLablogo.png" href="#maim.jsp"style="padding:0;height:50px;">
             </div>
             <div class="collapse navbar-collapse  navbar-right" id="top-navbar-collapse">
                 <ul class="nav navbar-nav">
@@ -92,7 +92,7 @@
         });
     });
     var TableInit = function(){
-        var oTableInit = new Object();
+        var oTableInit = {};
         oTableInit.initTable=function(){
             $('#tb_searchResult').bootstrapTable({
                 method:'post',
@@ -188,7 +188,7 @@
             return temp;
         };
         return oTableInit;
-    }
+    };
     //传递公司ID
     function showCompanyInfo(){
         conpany_url="CompanyInfo.jsp?CompanyID="+encodeURI(encodeURI(CompanyID));//拼接url

@@ -50,7 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <img class="navbar-brand" src="..\pics\陆门实验室logo_副本.png" href="#maim.html"style="padding:0;height:50px;">
+                <img class="navbar-brand" src="../pics/IRLablogo.png" href="#maim.html"style="padding:0;height:50px;">
             </div>
             <div class="collapse navbar-collapse  navbar-right" id="top-navbar-collapse">
                 <ul class="nav navbar-nav">
