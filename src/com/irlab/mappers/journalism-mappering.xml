@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irlab.dao.JournalismDao">
+	<resultMap type="Journalism" id="JournalismResultMap">
+		<id property="j_id" column="j_id" />
+		<result property="j_title" column="j_title"/>
+		<result property="j_time" column="j_time"/>
+		<result property="j_digest" column="j_digest"/>
+		<result property="j_content" column="j_content"/>
+		<result property="j_event" column="j_event"/>
+	</resultMap>
+	
+	<!-- 通过新闻标题、新闻内容查询新闻的所有信息 -->
+	<select id="selectJournalismDao" resultMap="JournalismResultMap">
+		select * from journalism 
+		<where>
+			<if test="j_title!=null">
+				or j_title like CONCAT(CONCAT('%',#{j_title}),'%')
+			</if>
+			<if test="j_content!=null">
+				or j_content like CONCAT(CONCAT('%',#{j_content}),'%')
+			</if>
+			<if test="j_time!=null">
+				and j_time like CONCAT(CONCAT('%',#{j_time}),'%')
+			</if>
+			limit #{n_start},#{n_rows}
+		</where> 
+	</select>
+	
+	<!-- 通过新闻标题、新闻内容、查询记录数 -->
+	<select id="selectCountJournalismDao" resultType="int">
+		select count(*) from journalism 
+		<where>
+			<if test="j_title!=null">
+				or j_title like CONCAT(CONCAT('%',#{j_title}),'%')
+			</if>
+			<if test="j_content!=null">
+				or j_content like CONCAT(CONCAT('%',#{j_content}),'%')
+			</if>
+			<if test="j_time!=null">
+				and j_time like CONCAT(CONCAT('%',#{j_time}),'%')
+			</if>
+		</where> 
+	</select>	
+</mapper>
