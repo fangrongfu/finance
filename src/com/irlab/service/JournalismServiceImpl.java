@@ -34,6 +34,7 @@ public class JournalismServiceImpl implements JournalismService{
 			map.put("total", journalismDao.selectCountJournalismDao(paging));
 			map.put("rows", journalismDao.selectJournalismDao(paging));
 		}
+		System.out.println(map);
 		return map;
 	}
 

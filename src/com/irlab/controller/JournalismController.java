@@ -37,23 +37,25 @@ public class JournalismController {
 	
 	@RequestMapping("/select")
 	@ResponseBody
-	public Map<String, Object> selectJournalismController(HttpServletRequest request,int page,int rows,String searchObj,String date){
+	public Map<String, Object> selectJournalismController(HttpServletRequest request,int page,int rows,String companyName,String date){
 		Paging paging = new Paging();
+		System.out.println(companyName);
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(date.equals("all")) {
 			date = null;
 			paging.setJ_time(date);
-			paging.setJ_title(searchObj);
-			paging.setJ_content(searchObj);
+			paging.setJ_title(companyName);
+			paging.setJ_content(companyName);
 			paging.setN_start((page-1)*rows);
 			paging.setN_rows(rows);
 		}else {
 			paging.setJ_time(date);
-			paging.setJ_title(searchObj);
-			paging.setJ_content(searchObj);
+			paging.setJ_title(companyName);
+			paging.setJ_content(companyName);
 			paging.setN_start((page-1)*rows);
 			paging.setN_rows(rows);
 		}
+		System.out.println(paging);
 		return journalismService.selectJournalismService(paging);
 	}
 }
