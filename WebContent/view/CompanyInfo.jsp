@@ -36,6 +36,20 @@
             margin: 0;
             padding: 0;
         }
+        newsTitle{
+            padding:5px 0 4px 0;
+            vertical-align:top;
+            text-align:left;
+            padding-bottom:0;
+        }
+        newsDigest{
+            padding:5px 0 4px 0;
+            padding-top:0;
+        }
+        newsTime{
+            padding:5px 0 4px 0;
+            padding-top:0;
+        }
     </style>
 </head>
 <body>
@@ -144,8 +158,7 @@
             searchFinEvent();
         });
         searchCompanyInfo();
-        initNoticeTb();
-        initNewsTb();
+
         $("body").keydown(function() {
             if (event.keyCode == "13") {//keyCode=13是回车键
                 $('#search').click();
@@ -180,6 +193,7 @@
         $('#tell').append(companyInfo.company.information.i_tell);
     }
     function searchCompanyInfo() {
+        var getCompanyName="";
         $.ajax({
             type:'post',
             url:'${pageContext.request.contextPath}/notice/selectDetail.do',
@@ -187,6 +201,9 @@
             success:function (rtn) {
                 if(rtn!=null){
                     initInfo(rtn);
+                    getCompanyName = rtn.company.c_name;
+                    initNoticeTb(showCompanyID);
+                    initNewsTb(showCompanyID,getCompanyName);
                 }
                 else{
                     alert('暂未获取到相关数据');
@@ -195,7 +212,7 @@
         });
     }
 
-    function initNoticeTb() {
+    function initNoticeTb(ID) {
         $('#tb_Notice').bootstrapTable({
             method:'post',
             contentType: 'application/x-www-form-urlencoded',
@@ -209,7 +226,7 @@
                 var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
                     rows: params.limit,   //页面大小
                     page: (params.offset/params.limit)+1,  //页码
-                    searchObj:showCompanyID
+                    searchObj:ID
                 };
                 return temp;
             },
@@ -257,7 +274,7 @@
         });//表格参数初始化
     }
     //新闻采用表格嵌套表格的展示方法
-    function initNewsTb() {
+    function initNewsTb(ID,name) {
         $('#tb_News').bootstrapTable({
             method:'post',
             contentType: 'application/x-www-form-urlencoded',
@@ -272,7 +289,8 @@
                 var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
                     rows: params.limit,   //页面大小
                     page: params.offset+1,  //页码
-                    searchObj:showCompanyID,
+                    showCompanyID:ID,
+                    companyName:name,
                     date:($('#datePicker').data().date)==null?"all":$('#datePicker').data().date
                 };
                 return temp;
@@ -292,17 +310,17 @@
                     formatter:function(value,row,index){
                         var operation='<table cellpadding="0" cellspacing="0" border="0" style="border:none; margin:0 auto; width:100%"><tbody>';
                             operation=operation+'<tr>';
-                                operation=operation+'<td class="newsTitle" colspan="2" style="padding:5px 0 4px 0; vertical-align:top; text-align:left; padding-bottom:0" valign="top" align="left"><h5>'+row.j_title+'</h5>';
+                                operation=operation+'<td class="newsTitle" colspan="2" valign="top" align="left"><h5>'+row.j_title+'</h5>';
                                 operation=operation+'</td>';
                             operation=operation+'</tr>';
                             operation=operation+'<tr>';
-                                operation=operation+'<td class="newsDigest" colspan="2" style="padding:5px 0 4px 0; padding-top:0"><h5><small>'+row.j_digest+'</small></h5>';
+                                operation=operation+'<td class="newsDigest" colspan="2"><h5><small>'+row.j_digest+'</small></h5>';
                                 operation=operation+'</td>';
                             operation=operation+'</tr>';
                             operation=operation+'<tr>';
-                                operation=operation+'<td class="newsIndustry" style="padding:5px 0 4px 0; padding-top:0"><p>'+row.j_industry+'</p>';
+                                operation=operation+'<td class="newsIndustry"><p>'+row.j_industry+'</p>';
                                 operation=operation+'</td>';
-                                operation=operation+'<td class="newsTime" style="padding:5px 0 4px 0; padding-top:0"><p>'+row.j_time+'</p>';
+                                operation=operation+'<td class="newsTime"><p>'+row.j_time+'</p>';
                                 operation=operation+'</td>';
                             operation=operation+'</tr>';
                             operation=operation+'<tr>    ';
