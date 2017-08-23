@@ -74,15 +74,12 @@
 </body>
 <script>
     var searchObjPost=decodeURI(GetQueryString("searchObj"));
-    var CompanyID = null;
     $(function(){
         $('#search').click(function(){
             // 输入的内容传递给后台，并跳转到检索结果界面
             searchObj=$('#topSearch').val();
             searchFinEvent();
         });
-        //var Result_Obj;
-        //getSearchResult();
         var oTable=new TableInit();
         oTable.initTable();
         $("body").keydown(function() {
@@ -130,8 +127,7 @@
                         events:{
                             'click .showCompany':function(e,value,row,index){
                                 //点击该行，显示该企业或者该企业对应的事件
-                                CompanyID=row.n_code;
-                                showCompanyInfo();
+                                showCompanyInfo(row.n_code);
                                 //console.info(CompanyID);
                             }
                         }
@@ -148,9 +144,7 @@
                         events:{
                             'click .showCompany':function(e,value,row,index){
                                 //点击该行，显示该企业或者该企业对应的事件
-                                CompanyID=row.n_code;
-                                showCompanyInfo();
-                                //console.info(CompanyID);
+                                showCompanyInfo(row.n_code);
                             }
                         }
                     },
@@ -190,9 +184,9 @@
         return oTableInit;
     };
     //传递公司ID
-    function showCompanyInfo(){
-        conpany_url="CompanyInfo.jsp?CompanyID="+encodeURI(encodeURI(CompanyID));//拼接url
-        window.location.href=conpany_url;
-        console.info(CompanyID);
+    function showCompanyInfo(CompanyID){
+        var company_url="CompanyInfo.jsp?CompanyID="+encodeURI(encodeURI(CompanyID));//拼接url
+        window.location.href=company_url;
+        //console.info(CompanyID);
     }
 </script>
