@@ -63,8 +63,8 @@
 				        <li class="dropdown">
 					        <a href="#" class="dropdown-toggle" data-toggle="dropdown">&nbsp事件汇总&nbsp<b class="caret"></b></a>
 					        <ul class="dropdown-menu">
-						        <li><a href="#" >&nbsp新闻&nbsp</a></li>
-						        <li><a href="#" >&nbsp公告&nbsp</a></li>
+						        <li><a href="newsInfo.jsp" >&nbsp新闻&nbsp</a></li>
+						        <li><a href="searchResult.jsp" >&nbsp公告&nbsp</a></li>
 						        <li class="divider"></li>
 						        <li><a href="#" >&nbsp季报/年报&nbsp</a></li>
 					        </ul>

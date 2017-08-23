@@ -36,17 +36,17 @@
             margin: 0;
             padding: 0;
         }
-        newsTitle{
+        .newsTitle{
             padding:5px 0 4px 0;
             vertical-align:top;
             text-align:left;
             padding-bottom:0;
         }
-        newsDigest{
+        .newsDigest{
             padding:5px 0 4px 0;
             padding-top:0;
         }
-        newsTime{
+        .newsFooter{
             padding:5px 0 4px 0;
             padding-top:0;
         }
@@ -68,13 +68,13 @@
             </div>
             <div class="collapse navbar-collapse  navbar-right" id="top-navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="main.html">&nbsp&nbsp首页&nbsp&nbsp</a></li>
-                    <li class="active"><a href="search.html">&nbsp高级搜索&nbsp</a></li>
+                    <li><a href="main.jsp">&nbsp&nbsp首页&nbsp&nbsp</a></li>
+                    <li><a href="search.jsp">&nbsp高级搜索&nbsp</a></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown">&nbsp事件汇总&nbsp<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#" >&nbsp新闻&nbsp</a></li>
-                            <li><a href="#" >&nbsp公告&nbsp</a></li>
+                            <li><a href="newsInfo.jsp" >&nbsp新闻&nbsp</a></li>
+                            <li><a href="searchResult.jsp" >&nbsp公告&nbsp</a></li>
                             <li class="divider"></li>
                             <li><a href="#" >&nbsp季报/年报&nbsp</a></li>
                         </ul>
@@ -146,7 +146,22 @@
         </div>
     </div>
 </div>
-
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="newsModal" tabindex="-1" role="dialog" aria-labelledby="newsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="newsModalLabel"></h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 </body>
 <script>
     var showCompanyID=decodeURI(GetQueryString("CompanyID"));
@@ -290,7 +305,7 @@
                     rows: params.limit,   //页面大小
                     page: params.offset+1,  //页码
                     showCompanyID:ID,
-                    companyName:name,
+                    companyName:name==null?"all":name,
                     date:($('#datePicker').data().date)==null?"all":$('#datePicker').data().date
                 };
                 return temp;
@@ -310,7 +325,7 @@
                     formatter:function(value,row,index){
                         var operation='<table cellpadding="0" cellspacing="0" border="0" style="border:none; margin:0 auto; width:100%"><tbody>';
                             operation=operation+'<tr>';
-                                operation=operation+'<td class="newsTitle" colspan="2" valign="top" align="left"><h5>'+row.j_title+'</h5>';
+                                operation=operation+'<td class="newsTitle" colspan="2" valign="top" align="left"><h4>'+row.j_title+'</h4>';
                                 operation=operation+'</td>';
                             operation=operation+'</tr>';
                             operation=operation+'<tr>';
@@ -318,22 +333,21 @@
                                 operation=operation+'</td>';
                             operation=operation+'</tr>';
                             operation=operation+'<tr>';
-                                operation=operation+'<td class="newsIndustry"><p>'+row.j_industry+'</p>';
-                                operation=operation+'</td>';
-                                operation=operation+'<td class="newsTime"><p>'+row.j_time+'</p>';
+                                operation=operation+'<td class="newsFooter"><span>'+row.j_industry+'</span><span>&nbsp &nbsp'+row.j_time+'</span>';
                                 operation=operation+'</td>';
                             operation=operation+'</tr>';
                             operation=operation+'<tr>    ';
                             operation=operation+'</tr>';
                         operation=operation+'</tbody></table>';
                         return operation;
-                    },
-                    onClickRow:function(row,$element){
-                            urlLink=row.j_url;
-                            window.open(urlLink);
                     }
                 }
             ],
+            onClickRow:function(row,$element){
+                $('.modal-title').append(row.j_title);
+                $('.modal-body').append(row.j_content);
+                $('.modal').modal('show');
+            },
             locale:"zh-CN"
         });//表格参数初始化
     }

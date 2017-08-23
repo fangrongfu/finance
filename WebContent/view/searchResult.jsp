@@ -48,7 +48,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">&nbsp事件汇总&nbsp<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#" >&nbsp新闻&nbsp</a></li>
+                            <li><a href="newsInfo.jsp" >&nbsp新闻&nbsp</a></li>
                             <li><a href="#" >&nbsp公告&nbsp</a></li>
                             <li class="divider"></li>
                             <li><a href="#" >&nbsp季报/年报&nbsp</a></li>
@@ -113,7 +113,7 @@
                 showColumns:true,
                 showRefresh: true,
                 showToggle:true,
-                search: true,//是否显示右上角的搜索框
+                //search: true,//是否显示右上角的搜索框
                 columns:[
                     {
                         title:"公司名称",
@@ -176,6 +176,9 @@
                 rows: params.limit,   //页面大小
                 page: (params.offset/params.limit)+1,  //页码
                 searchObj:searchObjPost
+                //keyword:params.search,//搜索
+                //sortOrder: params.order,//排序
+                //sortName:params.sort//排序字段
             };
             //console.info(params);
             //console.info(temp);
@@ -185,7 +188,7 @@
     };
     //传递公司ID
     function showCompanyInfo(CompanyID){
-        var company_url="CompanyInfo.jsp?CompanyID="+encodeURI(encodeURI(CompanyID));//拼接url
+        var company_url="companyInfo.jsp?CompanyID="+encodeURI(encodeURI(CompanyID));//拼接url
         window.location.href=company_url;
         //console.info(CompanyID);
     }
