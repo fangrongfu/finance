@@ -188,7 +188,7 @@
     };
     //传递公司ID
     function showCompanyInfo(CompanyID){
-        var company_url="companyInfo.jsp?CompanyID="+encodeURI(encodeURI(CompanyID));//拼接url
+        var company_url="CompanyInfo.jsp?CompanyID="+encodeURI(encodeURI(CompanyID));//拼接url
         window.location.href=company_url;
         //console.info(CompanyID);
     }

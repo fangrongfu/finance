@@ -110,7 +110,7 @@
         </div>
         <div class="col-xs-6 listItem">
             <label>相关企业：</label>
-                <input type="text" id="searchCompanyName" style="width: 70%;" class="form-control"placeholder="请输入企业名称/简称">
+                <input type="text" id="searchCompany" style="width: 70%;" class="form-control"placeholder="请输入企业名称/简称">
                 <span class="input-group-btn">
                     <button id="btSearch" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span>搜索</button>
                 </span>
@@ -151,10 +151,18 @@
             }
         });
         initDatetimes();
-        initNewsTb();
+        initNewsTb("all","all");
         $('#btSearch').click(function () {
-            var searchCompanyName=$('#searchCompanyName').val();
-            initNewsTb("",searchCompanyName);
+            var searchCompany=$('#searchCompany').val();
+            var opt={
+                url:'${pageContext.request.contextPath}/journalism/select.do',
+                silent:true,
+                query:{
+                    companyName: searchCompany == null ? "all" : searchCompany,
+                    date: ($('#datePicker').data().date) == null ? "all" : $('#datePicker').data().date
+                }
+            };
+            $("#tb_searchNewsResult").bootstrapTable('refresh', opt);
         });
     });
 
@@ -188,7 +196,7 @@
             queryParams: function (params) {
                 var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
                     rows: params.limit,   //页面大小
-                    page: params.offset+1,  //页码
+                    page: (params.offset/params.limit)+1,  //页码
                     showCompanyID:ID,
                     companyName:name==null?"all":name,
                     date:($('#datePicker').data().date)==null?"all":$('#datePicker').data().date
@@ -205,12 +213,12 @@
             showToggle:true,
             columns:[
                 {
-                    title:"公告详情",
+                    title:"新闻详情",
                     field:"journalism",
                     formatter:function(value,row,index){
                         var operation='<table cellpadding="0" cellspacing="0" border="0" style="border:none; margin:0 auto; width:100%"><tbody>';
                         operation=operation+'<tr>';
-                        operation=operation+'<td class="newsTitle" colspan="2" valign="top" align="left"><h5>'+row.j_title+'</h5>';
+                        operation=operation+'<td class="newsTitle" colspan="2" valign="top" align="left"><h4>'+row.j_title+'</h4>';
                         operation=operation+'</td>';
                         operation=operation+'</tr>';
                         operation=operation+'<tr>';
@@ -229,6 +237,8 @@
                 }
             ],
             onClickRow:function(row,$element){
+                $('.modal-title').empty();
+                $('.modal-body').empty();
                 $('.modal-title').append(row.j_title);
                 $('.modal-body').append(row.j_content);
                 $('.modal').modal('show');
