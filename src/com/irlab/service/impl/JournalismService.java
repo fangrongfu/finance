@@ -11,4 +11,5 @@ import com.irlab.entity.Paging;
  */
 public interface JournalismService {
 	public Map<String,Object> selectJournalismService(Paging paging);	//新闻检索的业务处理接口
+	public Map<String,Object> selectAllJournalismService(Paging paging);	//检索所有新闻信息的业务处理接口
 }

@@ -40,6 +40,7 @@ public class JournalismController {
 	public Map<String, Object> selectJournalismController(HttpServletRequest request,int page,int rows,String companyName,String date){
 		Paging paging = new Paging();
 		System.out.println(companyName);
+		System.out.println(page);
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(date.equals("all")) {
 			date = null;
@@ -55,7 +56,10 @@ public class JournalismController {
 			paging.setN_start((page-1)*rows);
 			paging.setN_rows(rows);
 		}
-		System.out.println(paging);
-		return journalismService.selectJournalismService(paging);
+		if(companyName.equals("all")) {
+			return journalismService.selectAllJournalismService(paging);
+		}else {
+			return journalismService.selectJournalismService(paging);
+		}
 	}
 }
