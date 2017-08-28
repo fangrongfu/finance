@@ -24,6 +24,7 @@
 			<if test="j_time!=null">
 				and j_time like CONCAT(CONCAT('%',#{j_time}),'%')
 			</if>
+		    group by j_time desc
 			limit #{n_start},#{n_rows}
 		</where> 
 	</select>
@@ -42,5 +43,15 @@
 				and j_time like CONCAT(CONCAT('%',#{j_time}),'%')
 			</if>
 		</where> 
+	</select>	
+	
+	<!-- 查询所有的新闻信息，并且按时间排序 -->
+	<select id="selectAllJournalismDao" resultMap="JournalismResultMap">
+		select * from journalism group by j_time desc limit #{n_start},#{n_rows}
+	</select>
+	
+	<!-- 通过新闻标题、新闻内容、查询记录数 -->
+	<select id="selectAllCountJournalismDao" resultType="int">
+		select count(*) from journalism 
 	</select>	
 </mapper>

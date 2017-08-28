@@ -34,7 +34,15 @@ public class JournalismServiceImpl implements JournalismService{
 			map.put("total", journalismDao.selectCountJournalismDao(paging));
 			map.put("rows", journalismDao.selectJournalismDao(paging));
 		}
-		System.out.println(map);
+		return map;
+	}
+	
+	@Override
+	public Map<String, Object> selectAllJournalismService(Paging paging) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("total", journalismDao.selectAllCountJournalismDao(paging));
+		map.put("rows", journalismDao.selectAllJournalismDao(paging));
 		return map;
 	}
 
