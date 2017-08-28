@@ -158,7 +158,7 @@
                 url:'${pageContext.request.contextPath}/journalism/select.do',
                 silent:true,
                 query:{
-                    companyName: searchCompany == null ? "all" : searchCompany,
+                    companyName: searchCompany == "" ? "all" : searchCompany,
                     date: ($('#datePicker').data().date) == null ? "all" : $('#datePicker').data().date
                 }
             };
