@@ -303,7 +303,7 @@
             queryParams: function (params) {
                 var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
                     rows: params.limit,   //页面大小
-                    page: params.offset+1,  //页码
+                    page: (params.offset/params.limit)+1,  //页码
                     showCompanyID:ID,
                     companyName:name==null?"all":name,
                     date:($('#datePicker').data().date)==null?"all":$('#datePicker').data().date
@@ -320,7 +320,7 @@
             showToggle:true,
             columns:[
                 {
-                    title:"公告详情",
+                    title:"新闻详情",
                     field:"journalism",
                     formatter:function(value,row,index){
                         var operation='<table cellpadding="0" cellspacing="0" border="0" style="border:none; margin:0 auto; width:100%"><tbody>';
@@ -344,8 +344,8 @@
                 }
             ],
             onClickRow:function(row,$element){
-                $('.modal-title').append(row.j_title);
-                $('.modal-body').append(row.j_content);
+                $('.modal-title').replaceWith(row.j_title);
+                $('.modal-body').replaceWith(row.j_content);
                 $('.modal').modal('show');
             },
             locale:"zh-CN"
