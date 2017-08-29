@@ -56,7 +56,8 @@ public class JournalismController {
 			paging.setN_start((page-1)*rows);
 			paging.setN_rows(rows);
 		}
-		if(companyName.equals("all")) {
+		if(companyName.equals("")) {
+			//System.out.println("你好！");
 			return journalismService.selectAllJournalismService(paging);
 		}else {
 			return journalismService.selectJournalismService(paging);
