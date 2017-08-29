@@ -111,13 +111,30 @@
             <div id="tab1" class="tab-pane fade in active">
                 <h4 style="margin: 10px">概况</h4>
                 <ul style="margin: 10px" class="list-group">
-                    <li id="address" class="list-group-item">企业地址：</li>
-                    <li id="ceo" class="list-group-item">现任董秘：</li>
-                    <li id="createDate" class="list-group-item">创建时间：</li>
-                    <li id="code" class="list-group-item">发行代码：</li>
-                    <li id="legalRepresent" class="list-group-item">法人代表：</li>
-                    <li id="listingDate" class="list-group-item">发行日期：</li>
-                    <li id="tell" class="list-group-item">联系电话：</li>
+                    <li id="fullName" class="list-group-item"><strong>企业全称：</strong></li>
+                    <li id="nameEn" class="list-group-item"><strong>英文名称：</strong></li>
+                    <li id="listMarket" class="list-group-item"><strong>上市市场：</strong></li>
+                    <li id="listDate" class="list-group-item"><strong>上市日期：</strong></li>
+                    <li id="issuePrice" class="list-group-item"><strong>发行价格：</strong></li>
+                    <li id="leadUnderWriter" class="list-group-item"><strong>主承销商：</strong></li>
+                    <li id="establishDate" class="list-group-item"><strong>成立日期：</strong></li>
+                    <li id="registCapital" class="list-group-item"><strong>注册资本：</strong></li>
+                    <li id="organizationType" class="list-group-item"><strong>机构类型：</strong></li>
+                    <li id="organizationForm" class="list-group-item"><strong>组织形式：</strong></li>
+                    <li id="boardSecretary" class="list-group-item"><strong>董秘：</strong></li>
+                    <li id="secretaryCall" class="list-group-item"><strong>董秘电话：</strong></li>
+                    <li id="secretaryFax" class="list-group-item"><strong>董秘传真：</strong></li>
+                    <li id="secretaryEmail" class="list-group-item"><strong>董秘邮箱：</strong></li>
+                    <li id="companyTell" class="list-group-item"><strong>公司电话：</strong></li>
+                    <li id="companyFax" class="list-group-item"><strong>公司传真：</strong></li>
+                    <li id="companyEmail" class="list-group-item"><strong>公司邮箱：</strong></li>
+                    <li id="companyWeb" class="list-group-item"><strong>公司网址：</strong></li>
+                    <li id="companyPostCode" class="list-group-item"><strong>邮政编码：</strong></li>
+                    <li id="informationDisclosure" class="list-group-item"><strong>信息披露：</strong></li>
+                    <li id="securitiesHistory" class="list-group-item"><strong>证券简称更名历史：</strong></li>
+                    <li id="registAddress" class="list-group-item"><strong>注册地址：</strong></li>
+                    <li id="officeAddress" class="list-group-item"><strong>办公地址：</strong></li>
+                    <li id="scope" class="list-group-item"><strong>经营范围：</strong></li>
                 </ul>
             </div>
             <div id="tab2" class="tab-pane fade">
@@ -196,27 +213,43 @@
     }
 
     function initInfo(companyInfo) {
-        company_code=companyInfo.company.information.i_id;
-        $('#companyName').html("<strong>"+companyInfo.company.c_name+"</strong>("+companyInfo.company.information.i_id+")");
-        $('#comDescribe').html("<small>"+companyInfo.company.c_fullname+"</small>");
-        $('#address').append(companyInfo.company.information.i_address);
-        $('#ceo').append(companyInfo.company.information.i_ceo);
-        $('#createDate').append(companyInfo.company.information.i_createDate);
-        $('#code').append(companyInfo.company.information.i_id);
-        $('#legalRepresent').append(companyInfo.company.information.i_legalRepresentative);
-        $('#listingDate').append(companyInfo.company.information.i_listing);
-        $('#tell').append(companyInfo.company.information.i_tell);
+        $('#companyName').html("<strong>"+companyInfo.n_name+"</strong>("+companyInfo.n_code+")");
+        $('#comDescribe').html("<small>"+companyInfo.c_company_profile+"</small>");
+        $('#fullName').append(companyInfo.c_full_name);
+        $('#nameEn').append(companyInfo.c_English_name);
+        $('#listMarket').append(companyInfo.c_listed_market);
+        $('#listDate').append(companyInfo.c_listing_date);
+        $('#issuePrice').append(companyInfo.c_issue_price);
+        $('#leadUnderWriter').append(companyInfo.c_lead_underwriter);
+        $('#establishDate').append(companyInfo.c_establishment_date);
+        $('#registCapital').append(companyInfo.c_registered_capital);
+        $('#organizationType').append(companyInfo.c_organization_type);
+        $('#organizationForm').append(companyInfo.c_organization_form);
+        $('#boardSecretary').append(companyInfo.c_board_secretary);
+        $('#secretaryCall').append(companyInfo.c_secretary_call);
+        $('#secretaryFax').append(companyInfo.c_secretary_fax);
+        $('#secretaryEmail').append(companyInfo.c_secretary_email);
+        $('#companyTell').append(companyInfo.c_company_phone);
+        $('#companyFax').append(companyInfo.c_company_fax);
+        $('#companyEmail').append(companyInfo.c_company_email);
+        $('#companyWeb').append(companyInfo.c_company_website);
+        $('#companyPostCode').append(companyInfo.c_company_maibox);
+        $('#informationDisclosure').append('<a href="'+companyInfo.c_information_disclosure_website+'">'+companyInfo.c_information_disclosure_website+'</a>');
+        $('#securitiesHistory').append(companyInfo.c_securities_history);
+        $('#registAddress').append(companyInfo.c_registered_address);
+        $('#officeAddress').append(companyInfo.c_office_address);
+        $('#scope').append(companyInfo.c_management_scope);
     }
     function searchCompanyInfo() {
         var getCompanyName="";
         $.ajax({
             type:'post',
-            url:'${pageContext.request.contextPath}/notice/selectDetail.do',
+            url:'${pageContext.request.contextPath}/company/select.do',
             data:showCompanyID,
             success:function (rtn) {
                 if(rtn!=null){
                     initInfo(rtn);
-                    getCompanyName = rtn.company.c_name;
+                    getCompanyName = rtn.n_name;
                     initNoticeTb(showCompanyID);
                     initNewsTb(showCompanyID,getCompanyName);
                 }
