@@ -245,7 +245,7 @@
         $.ajax({
             type:'post',
             url:'${pageContext.request.contextPath}/company/select.do',
-            N_code:showCompanyID,
+            data:{N_code:showCompanyID},
             success:function (rtn) {
                 if(rtn!=null){
                     initInfo(rtn);
