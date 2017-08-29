@@ -22,6 +22,7 @@ public class CompanyServiceImpl implements CompanyService{
 	//通过股票代码查询公司信息的接口的实现
 	public Company selectCompanyService(Company company) {
 		// TODO Auto-generated method stub
-		return companyDao.selectCompany(company);
+		System.out.println(companyDao.selectCompanyDao(company));
+		return companyDao.selectCompanyDao(company);
 	}
 }

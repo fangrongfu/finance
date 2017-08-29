@@ -27,6 +27,8 @@ public class CompanyController {
 	public Company selectCompanyController(String CompanyID) {
 		Company company = new Company();
 		company.setN_code(CompanyID);
+		System.out.println(CompanyID);
+		System.out.println(companyService.selectCompanyService(company));
 		return companyService.selectCompanyService(company);	
 	}
 }
