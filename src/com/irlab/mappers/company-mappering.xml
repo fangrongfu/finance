@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irlab.dao.CompanyDao">
+	<resultMap type="Company" id="CompanyResultMap">
+		<id property="c_id" column="c_id" />
+		<result property="n_name" column="n_name"/>
+		<result property="n_code" column="n_code"/>
+		<result property="c_full_name" column="c_full_name"/>
+		<result property="c_English_name" column="c_English_name"/>
+		<result property="c_listed_market" column="c_listed_market"/>
+		<result property="c_listing_date" column="c_listing_date"/>
+		<result property="c_issue_price" column="c_issue_price"/>
+		<result property="c_lead_underwriter" column="c_lead_underwriter"/>
+		<result property="c_establishment_date" column="c_establishment_date"/>
+		<result property="c_registered_capital" column="c_registered_capital"/>
+		<result property="c_organization_type" column="c_organization_type"/>
+		<result property="c_organization_form" column="c_organization_form"/>
+		<result property="c_board_secretary" column="c_board_secretary"/>
+		<result property="c_company_phone" column="c_company_phone"/>
+		<result property="c_secretary_call" column="c_secretary_call"/>
+		<result property="c_company_fax" column="c_company_fax"/>
+		<result property="c_secretary_fax" column="c_secretary_fax"/>
+		<result property="c_company_email" column="c_company_email"/>
+		<result property="c_secretary_email" column="c_secretary_email"/>
+		<result property="c_company_website" column="c_company_website"/>
+		<result property="c_company_maibox" column="c_company_maibox"/>
+		<result property="c_information_disclosure_website" column="c_information_disclosure_website"/>
+		<result property="c_securities_history" column="c_securities_history"/>
+		<result property="c_registered_address" column="c_registered_address"/>
+		<result property="c_office_address" column="c_office_address"/>
+		<result property="c_company_profile" column="c_company_profile"/>
+		<result property="c_management_scope" column="c_management_scope"/>
+	</resultMap>
+	
+	<!-- 通过股票代码查询公司的所有信息 -->
+	<select id="selectCompanyDao" resultMap="CompanyResultMap">
+		select * from company where n_code = #{n_code}
+	</select>
+	</mapper>
