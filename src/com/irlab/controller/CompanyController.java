@@ -24,10 +24,10 @@ public class CompanyController {
 	//接收前端传过来的公司股票代码并返回所有的公司信息
 	@RequestMapping("/select")
 	@ResponseBody
-	public Company selectCompanyController(String CompanyID) {
+	public Company selectCompanyController(String N_code) {
 		Company company = new Company();
-		company.setN_code(CompanyID);
-		System.out.println(CompanyID);
+		company.setN_code(N_code);
+		System.out.println(N_code);
 		System.out.println(companyService.selectCompanyService(company));
 		return companyService.selectCompanyService(company);	
 	}
