@@ -29,7 +29,7 @@ public class JournalismServiceImpl implements JournalismService{
 		int total = journalismDao.selectCountJournalismDao(paging);
 		if(total == 0) {
 			map.put("total", 0);
-			map.put("rows", "没有数据");
+			map.put("rows", "");
 		}else {
 			map.put("total", journalismDao.selectCountJournalismDao(paging));
 			map.put("rows", journalismDao.selectJournalismDao(paging));
