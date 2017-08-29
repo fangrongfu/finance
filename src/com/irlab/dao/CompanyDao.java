@@ -8,5 +8,5 @@ import com.irlab.entity.Company;
  * @time    2017年8月29日上午9:45:43
  */
 public interface CompanyDao {
-	public Company selectCompany(Company company);  //通过ID查询公司的基本信息
+	public Company selectCompanyDao(Company company);  //通过ID查询公司的基本信息
 }
