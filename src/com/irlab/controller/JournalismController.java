@@ -32,15 +32,10 @@ public class JournalismController {
 	@Resource
 	private JournalismService journalismService;
 	
-	@Resource
-	private JournalismDao journalismDao;
-	
 	@RequestMapping("/select")
 	@ResponseBody
 	public Map<String, Object> selectJournalismController(HttpServletRequest request,int page,int rows,String companyName,String date){
 		Paging paging = new Paging();
-		System.out.println(companyName);
-		System.out.println(page);
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(date.equals("all")) {
 			date = null;
