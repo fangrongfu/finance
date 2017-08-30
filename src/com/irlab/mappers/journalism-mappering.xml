@@ -22,9 +22,8 @@
 				or j_content like CONCAT(CONCAT('%',#{j_content}),'%')
 			</if>
 			<if test="j_time!=null">
-				and j_time like CONCAT(CONCAT('%',#{j_time}),'%')
+				and j_time = #{j_time} 
 			</if>
-		    group by j_time desc
 			limit #{n_start},#{n_rows}
 		</where> 
 	</select>
@@ -40,7 +39,7 @@
 				or j_content like CONCAT(CONCAT('%',#{j_content}),'%')
 			</if>
 			<if test="j_time!=null">
-				and j_time like CONCAT(CONCAT('%',#{j_time}),'%')
+				and j_time = #{j_time}
 			</if>
 		</where> 
 	</select>	

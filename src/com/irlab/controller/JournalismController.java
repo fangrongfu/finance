@@ -51,10 +51,15 @@ public class JournalismController {
 			paging.setN_start((page-1)*rows);
 			paging.setN_rows(rows);
 		}
-		if(companyName.equals("")) {
-			//System.out.println("你好！");
+		if(companyName.equals("all") && paging.getJ_time() == null ) {
 			return journalismService.selectAllJournalismService(paging);
 		}else {
+			if(companyName.equals("all")) {
+				companyName = null;
+				paging.setJ_title(companyName);
+				paging.setJ_content(companyName);
+				return journalismService.selectJournalismService(paging);
+			}
 			return journalismService.selectJournalismService(paging);
 		}
 	}
