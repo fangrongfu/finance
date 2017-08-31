@@ -237,11 +237,12 @@
                 }
             ],
             onClickRow:function(row,$element){
-                $('.modal-title').empty();
-                $('.modal-body').empty();
-                $('.modal-title').append(row.j_title);
-                $('.modal-body').append(row.j_content);
-                $('.modal').modal('show');
+//                $('.modal-title').empty();
+//                $('.modal-body').empty();
+//                $('.modal-title').append(row.j_title);
+//                $('.modal-body').append(row.j_content);
+//                $('.modal').modal('show');
+                window.open(row.j_url);
             },
             locale:"zh-CN"
         });//表格参数初始化

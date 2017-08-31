@@ -386,9 +386,10 @@
                 }
             ],
             onClickRow:function(row,$element){
-                $('.modal-title').replaceWith(row.j_title);
-                $('.modal-body').replaceWith(row.j_content);
-                $('.modal').modal('show');
+//                $('.modal-title').replaceWith(row.j_title);
+//                $('.modal-body').replaceWith(row.j_content);
+//                $('.modal').modal('show');
+                window.open(row.j_url);
             },
             locale:"zh-CN"
         });//表格参数初始化
