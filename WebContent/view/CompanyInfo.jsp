@@ -300,8 +300,17 @@
                     order:"desc"
                 },
                 {
+                    title:"公告类型",
+                    field:"n_event",
+                },
+                {
                     title:"公告摘要",
                     field:"n_title",
+                },
+                {
+                    title:"发布时间",
+                    field:"n_time",
+                    width:90
                 },
                 {
                     title:"公告详情",
