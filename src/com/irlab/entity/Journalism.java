@@ -12,6 +12,7 @@ public class Journalism {
 	private String j_time;//  新闻的时间 
 	private String j_digest;//  新闻的摘要
 	private String j_content;//  新闻的全文
+	private String j_url;//  新闻的链接
 	//private String j_event;//  新闻的所属事件类别
 	public int getJ_id() {
 		return j_id;
@@ -43,9 +44,15 @@ public class Journalism {
 	public void setJ_content(String j_content) {
 		this.j_content = j_content;
 	}
+	public String getJ_url() {
+		return j_url;
+	}
+	public void setJ_url(String j_url) {
+		this.j_url = j_url;
+	}
 	@Override
 	public String toString() {
 		return "Journalism [j_id=" + j_id + ", j_title=" + j_title + ", j_time=" + j_time + ", j_digest=" + j_digest
-				+ ", j_content=" + j_content + "]";
+				+ ", j_content=" + j_content + ", j_url=" + j_url + "]";
 	}
 }
