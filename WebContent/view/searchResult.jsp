@@ -159,6 +159,7 @@
                     {
                         title:"发布时间",
                         field:"n_time",
+                        width:90
                     },
                     {
                         title:"公告详情",
