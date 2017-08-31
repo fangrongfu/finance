@@ -24,6 +24,7 @@
 			<if test="j_time!=null">
 				and j_time = #{j_time} 
 			</if>
+			order by j_time desc
 			limit #{n_start},#{n_rows}
 		</where> 
 	</select>

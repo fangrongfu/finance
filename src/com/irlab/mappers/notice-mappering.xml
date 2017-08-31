@@ -26,6 +26,7 @@
 			<if test="n_event!=null">
 				or n_event like CONCAT(CONCAT('%',#{n_event}),'%')
 			</if>
+			order by n_time desc
 			limit #{n_start},#{n_rows}
 		</where> 
 	</select>
