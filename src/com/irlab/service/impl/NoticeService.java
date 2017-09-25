@@ -11,4 +11,5 @@ import com.irlab.entity.Paging;
 public interface NoticeService {
 	public Map<String,Object> selectNoticeService(Paging paging);	//检索的业务处理接口
 	public Map<String, Object> selectAllNoticeService(Paging paging);  //查询所有公告信息的业务处理接口
+	public Map<String,Object> selectDetailNoticeService(Paging paging);	//查询季度报告业务处理接口
 }

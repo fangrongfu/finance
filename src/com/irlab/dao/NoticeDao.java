@@ -14,4 +14,6 @@ public interface NoticeDao {
 	public int selectCountNoticeDao(Paging paging);  //查询根据公司名称、股票代码、公告类型的总条数
 	public List<Notice> selectAllNoticeDao(Paging paging);  //查询所有的公告信息
 	public int selectCountAllNoticeDao(Paging paging);  //查询所有的公告的记录数
+	public List<Notice> selectDetailNoticeDao(Paging paging);  //查询季度公告信息
+	public int selectCountDetailNoticeDao(Paging paging);  //查询季度公告的记录数
 }

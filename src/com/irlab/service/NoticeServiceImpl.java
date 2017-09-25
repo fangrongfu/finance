@@ -42,4 +42,16 @@ public class NoticeServiceImpl implements NoticeService{
 		map.put("rows", noticeDao.selectAllNoticeDao(paging));
 		return map;	
 	}
+
+	/* (non-Javadoc)
+	 * @see com.irlab.service.impl.NoticeService#selectDetailNoticeService(com.irlab.entity.Paging)
+	 */
+	@Override
+	public Map<String, Object> selectDetailNoticeService(Paging paging) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("total", noticeDao.selectCountDetailNoticeDao(paging));
+		map.put("rows", noticeDao.selectDetailNoticeDao(paging));
+		return map;	
+	}
 }

@@ -55,5 +55,15 @@
 	<!-- 查询所有的公告记录数 -->
 	<select id="selectCountAllNoticeDao" resultType="int">
 		select count(*) from notice 
-	</select>	
+	</select>
+	
+	<!-- 查询季度公告信息 -->
+	<select id="selectDetailNoticeDao" resultMap="NoticeResultMap">
+		select * from notice where n_code = #{n_code} and n_event = #{n_event} order by n_time desc limit #{n_start},#{n_rows}
+	</select>
+	
+	<!-- 查询季度公告记录数 -->
+	<select id="selectCountDetailNoticeDao" resultType="int">
+		select count(*) from notice where n_code = #{n_code} and n_event = #{n_event}
+	</select>		
 </mapper>
