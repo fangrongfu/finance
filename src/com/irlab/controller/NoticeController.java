@@ -46,6 +46,7 @@ public class NoticeController {
 	@RequestMapping("/selectAll")
 	@ResponseBody
 	public Map<String, Object> selectAllNoticeControlller(HttpServletRequest request,int page,int rows){
+		System.out.println("nihao");
 		Paging paging = new Paging();
 		Map<String, Object> map = new HashMap<String, Object>();
 		paging.setN_start((page-1)*rows);
