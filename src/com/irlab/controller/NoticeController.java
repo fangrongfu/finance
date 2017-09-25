@@ -63,7 +63,6 @@ public class NoticeController {
 		paging.setN_code(n_code);
 		paging.setN_start((page - 1) * rows);
 		paging.setN_rows(rows);
-		System.out.println(paging);
 		return noticeService.selectDetailNoticeService(paging);
 	}
 }
