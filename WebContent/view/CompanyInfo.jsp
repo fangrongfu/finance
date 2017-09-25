@@ -435,7 +435,7 @@
                         rows: params.limit,   //页面大小
                         page: (params.offset/params.limit)+1,  //页码
                         n_code:ID,
-                        n_event:reportLabel[n+1]
+                        n_event:reportLabel[n-1]
                     };
                     return temp;
                 },
