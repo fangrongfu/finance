@@ -42,4 +42,14 @@ public class NoticeController {
 		paging.setN_rows(rows);
 		return noticeService.selectNoticeService(paging);
 	}
+	
+	@RequestMapping("/selectAll")
+	@ResponseBody
+	public Map<String, Object> selectAllNoticeControlller(HttpServletRequest request,int page,int rows){
+		Paging paging = new Paging();
+		Map<String, Object> map = new HashMap<String, Object>();
+		paging.setN_start((page-1)*rows);
+		paging.setN_rows(rows);
+		return noticeService.selectAllNoticeService(paging);
+	}
 }
