@@ -74,9 +74,7 @@
                         <a class="dropdown-toggle" data-toggle="dropdown">&nbsp事件汇总&nbsp<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="newsInfo.jsp" >&nbsp新闻&nbsp</a></li>
-                            <li><a href="searchResult.jsp" >&nbsp公告&nbsp</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#" >&nbsp季报/年报&nbsp</a></li>
+                            <li><a href="noticeInfo.jsp" >&nbsp公告&nbsp</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -102,7 +100,11 @@
             <ul class="nav nav-pills nav-left" >
                 <li class="active"><a data-toggle="pill" href="#tab1">&nbsp企业概况&nbsp</a></li>
                 <li><a data-toggle="pill" href="#tab2">&nbsp公司公告&nbsp</a></li>
-                <li><a data-toggle="pill" href="#tab3">&nbsp公司新闻&nbsp</a></li>
+                <li><a data-toggle="pill" href="#tab3">&nbsp一季度报告&nbsp</a></li>
+                <li><a data-toggle="pill" href="#tab4">&nbsp中期报告&nbsp</a></li>
+                <li><a data-toggle="pill" href="#tab5">&nbsp三季度报告&nbsp</a></li>
+                <li><a data-toggle="pill" href="#tab6">&nbsp年度报告&nbsp</a></li>
+                <li><a data-toggle="pill" href="#tab7">&nbsp公司新闻&nbsp</a></li>
             </ul>
         </div>
     </div>
@@ -143,6 +145,26 @@
                 </table>
             </div>
             <div id="tab3" class="tab-pane fade">
+                <h4 style="margin: 10px">一季度</h4>
+                <table id="tb_Reports1">
+                </table>
+            </div>
+            <div id="tab4" class="tab-pane fade">
+                <h4 style="margin: 10px">中期</h4>
+                <table id="tb_Reports2">
+                </table>
+            </div>
+            <div id="tab5" class="tab-pane fade">
+                <h4 style="margin: 10px">三季度</h4>
+                <table id="tb_Reports3">
+                </table>
+            </div>
+            <div id="tab6" class="tab-pane fade">
+                <h4 style="margin: 10px">年度</h4>
+                <table id="tb_Reports4">
+                </table>
+            </div>
+            <div id="tab7" class="tab-pane fade">
                 <h4 style="margin: 10px">近期新闻</h4>
                 <div  class="row">
                     <div class="col-sm-4">
@@ -251,6 +273,7 @@
                     initInfo(rtn);
                     getCompanyName = rtn.n_name;
                     initNoticeTb(showCompanyID);
+                    intiReportTab(showCompanyID);
                     initNewsTb(showCompanyID,getCompanyName);
                 }
                 else{
@@ -393,5 +416,77 @@
             },
             locale:"zh-CN"
         });//表格参数初始化
+    }
+    
+    function intiReportTab(ID) {
+        var reportLabel=["一季度报告","中期报告","三季度报告","年度报告"];
+        $.each([1,2,3,4],function (i,n) {
+            $('#tb_Reports'+n).bootstrapTable({
+                method:'post',
+                contentType: 'application/x-www-form-urlencoded',
+                fit:true,
+                fitColumns:true,
+                striped: true,
+                rownumbers: true,
+                pagination: true,
+                //dataType:"json",
+                queryParams: function (params) {
+                    var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                        rows: params.limit,   //页面大小
+                        page: (params.offset/params.limit)+1,  //页码
+                        n_code:ID,
+                        n_event:reportLabel[n+1]
+                    };
+                    return temp;
+                },
+                sidePagination: "server", //服务端处理分页
+                pageNumber:1,      //初始化加载第一页，默认第一页
+                pageSize: 10,      //每页的记录行数（*）
+                pageList: [10, 25, 50, 100],  //可供选择的每页的行数（*）
+                queryParamsType:'limit', //默认值为 'limit' ,在默认情况下 传给服务端的参数为：offset,limit,sort
+                // 设置为 ''  在这种情况下传给服务器的参数为：pageSize,pageNumber
+                url:'${pageContext.request.contextPath}/notice/selectDetail.do',
+                showToggle:true,
+                columns:[
+                    {
+                        title:"公司名称",
+                        field:"n_name",
+                        //sortable:true,
+                        order:"desc"
+                    },
+                    {
+                        title:"股票代码",
+                        field:"n_code",
+                        //sortable:true,
+                        order:"desc"
+                    },
+                    {
+                        title:"公告摘要",
+                        field:"n_title",
+                    },
+                    {
+                        title:"发布时间",
+                        field:"n_time",
+                        width:90
+                    },
+                    {
+                        title:"公告详情",
+                        field:"n_url",
+                        formatter:function(value,row,index){
+                            var operation='<a href="javascript:;" class="detail label label-success">查看详情</a>';
+                            return operation;
+                        },
+                        events:{
+                            'click .detail':function(e,value,row,index){
+                                urlLink=row.n_url;
+                                window.open(urlLink);
+                            }
+                        }
+                    }
+                ],
+                locale:"zh-CN"
+            });//表格参数初始化
+        })
+
     }
 </script>
