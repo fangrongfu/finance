@@ -13,7 +13,7 @@
 		<result property="n_event" column="n_event"/>
 	</resultMap>
 	
-	<!-- 通过公司名称、股票代码、公告类型查询新闻公告的所有信息 -->
+	<!-- 通过公司名称、股票代码、公告类型查询公告的所有信息 -->
 	<select id="selectNoticeDao" resultMap="NoticeResultMap">
 		select * from notice 
 		<where>
@@ -45,5 +45,15 @@
 				or n_event like CONCAT(CONCAT('%',#{n_event}),'%')
 			</if>
 		</where> 
+	</select>	
+	
+	<!-- 查询所有的公告信息 -->
+	<select id="selectAllNoticeDao" resultMap="NoticeResultMap">
+		select * from notice 
+	</select>
+	
+	<!-- 查询所有的公告记录数 -->
+	<select id="selectCountAllNoticeDao" resultType="int">
+		select count(*) from notice 
 	</select>	
 </mapper>
