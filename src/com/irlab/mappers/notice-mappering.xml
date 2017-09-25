@@ -49,7 +49,7 @@
 	
 	<!-- 查询所有的公告信息 -->
 	<select id="selectAllNoticeDao" resultMap="NoticeResultMap">
-		select * from notice 
+		select * from notice order by n_time desc limit #{n_start},#{n_rows}
 	</select>
 	
 	<!-- 查询所有的公告记录数 -->
