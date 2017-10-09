@@ -8,7 +8,7 @@
 		<result property="j_time" column="j_time"/>
 		<result property="j_digest" column="j_digest"/>
 		<result property="j_content" column="j_content"/>
-		<result property="j_event" column="j_event"/>
+		<result property="j_url" column="j_url"/>
 	</resultMap>
 	
 	<!-- 通过新闻标题、新闻内容查询新闻的所有信息 -->
